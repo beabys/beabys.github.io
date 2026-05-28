@@ -1,180 +1,566 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
-
-  <!-- Page Information
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <meta charset="utf-8">
-  <title>Alfonso Rodriguez</title>
-  <meta name="description" content="">
-  <meta name="author" content="">
-
-  <!-- Mobile Specific Metas
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Alfonso Rodríguez — Senior Software Engineer & Team Lead</title>
+  <meta name="description" content="Senior Software Engineer & Team Lead. 10+ years building e-commerce, payments, and SaaS platforms. Based in Hong Kong.">
 
-  <!-- FONT
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,800&display=swap" rel="stylesheet">
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
 
-  <!-- CSS
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <link rel="stylesheet" href="css/normalize.css">
-  <link rel="stylesheet" href="css/skeleton-dark.css">
-  <link rel="stylesheet" href="css/brands.css">
-  <link rel="stylesheet" href="css/alfonso.css">
+  <style>
+    /* ---- Scroll Fade Animations ---- */
+    .fade-section {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .fade-section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
 
-  <!-- Favicon
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    /* ---- Fixed Navbar ---- */
+    #navbar {
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    }
+    #navbar.scrolled {
+      background-color: var(--nav-bg);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      box-shadow: 0 2px 20px rgba(0, 0, 0, 0.4);
+    }
+
+    /* ---- Nav Link Underline ---- */
+    .nav-link {
+      position: relative;
+      transition: color 0.3s ease;
+    }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background-color: #C9A84C;
+      transition: width 0.3s ease;
+    }
+    .nav-link:hover::after {
+      width: 100%;
+    }
+
+    /* ---- Mobile Menu ---- */
+    #mobile-menu {
+      transform: translateX(100%);
+      transition: transform 0.3s ease;
+    }
+    #mobile-menu.open {
+      transform: translateX(0);
+    }
+
+    /* ---- Hamburger Animation (open state) ---- */
+    #hamburger-btn.open span:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 5px);
+    }
+    #hamburger-btn.open span:nth-child(2) {
+      opacity: 0;
+    }
+    #hamburger-btn.open span:nth-child(3) {
+      transform: rotate(-45deg) translate(5px, -5px);
+    }
+
+    /* ---- Theme-aware icons ---- */
+    [data-theme="light"] .icon-dark {
+      filter: brightness(0.15);
+    }
+
+    /* ---- Mobile breakpoint overrides ---- */
+    @media (max-width: 767px) {
+      .hero-title {
+        font-size: 2.5rem;
+      }
+    }
+
+    /* ---- Theme Variables ---- */
+    :root {
+      --bg-body: #0a0a0a;
+      --bg-card: rgba(255, 255, 255, 0.05);
+      --border-card: rgba(255, 255, 255, 0.1);
+      --text-primary: #ffffff;
+      --text-secondary: #9ca3af;
+      --text-link: #d1d5db;
+      --text-footer: #4b5563;
+      --border-subtle: rgba(255, 255, 255, 0.2);
+      --border-img: rgba(255, 255, 255, 0.1);
+      --hover-card: rgba(255, 255, 255, 0.08);
+      --nav-bg: rgba(10, 10, 10, 0.95);
+      --mobile-menu-border: rgba(255, 255, 255, 0.1);
+    }
+
+    [data-theme="light"] {
+      --bg-body: #f5f5f0;
+      --bg-card: rgba(255, 255, 255, 0.85);
+      --border-card: rgba(0, 0, 0, 0.08);
+      --text-primary: #1a1a1a;
+      --text-secondary: #6b7280;
+      --text-link: #4b5563;
+      --text-footer: #9ca3af;
+      --border-subtle: rgba(0, 0, 0, 0.15);
+      --border-img: rgba(0, 0, 0, 0.08);
+      --hover-card: rgba(0, 0, 0, 0.03);
+      --nav-bg: rgba(245, 245, 240, 0.95);
+      --mobile-menu-border: rgba(0, 0, 0, 0.08);
+    }
+
+    /* ---- Theme transition ---- */
+    body, section, div, p, h1, h2, h3, a, span, footer, nav, header, img {
+      transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+    }
+  </style>
+
+  <!-- Tailwind Play CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Favicon -->
   <link rel="icon" type="image/png" href="images/me.png">
-
 </head>
-<body>
+<body class="bg-[var(--bg-body)] text-[var(--text-primary)] font-sans antialiased" style="background-color: var(--bg-body); color: var(--text-primary);">
 
-  <!-- Primary Page Layout
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <div class="container">
-    <div class="row">
-      <div class="column" style="margin-top: 10%">
-        <!-- Your Image Here -->
-        <img src="images/me.png" srcset="images/me.png 2x">
-
-        <!-- Your Name -->
-        <h1>Alfonso Rodríguez</h1>
-
-        <!-- Short Bio -->
-        <p>
-          Php | Go | Python | Node.JS | MongoDB | Redis | RabbitMQ<br /><br />
-          Hi There !!!<br />
-          I am Alfonso Rodríguez.<br />
-          I'm a Mexican Software Developer based in Hong Kong.<br />
-          I love films, music, Mexican food, video games and dance. 😊</p>
-        <div>
-          <!-- <a class="small button-bitbucket" href="https://bitbucket.com/beabys"><img class="icon" src="images/icons/bitbucket.png"></a> -->
-          <a class="small button-github" href="https://github.com/beabys"><img class="icon" src="images/icons/github.svg"></a>
-          <a class="small button-gitlab" href="https://gitlab.com/beabys"><img class="icon" src="images/icons/gitlab.svg"></a>
-          <a class="small button-x" href="https://x.com/beabys"><img class="icon" src="images/icons/x.svg"></a>
-          <a class="small button-instagram" href="https://www.instagram.com/beabys"><img class="icon" src="images/icons/instagram.svg"></a>
-          <a class="small button-linkedin" href="https://www.linkedin.com/in/beabys/"><img class="icon" src="images/icons/linkedin.svg"></a>
-        <div>
-        <br>
-        <br>
-
-        <!-- Github -->
-        <a class="button button-github" href="https://github.com/beabys"><img class="icon" src="images/icons/github.svg">Github</a>
-          <br>
-
-        <!-- Gitlab -->
-        <a class="button button-gitlab" href="https://gitlab.com/beabys"><img class="icon" src="images/icons/gitlab.svg">Gitlab</a>
-        <br>
-
-          <!-- Bitucket
-          <a class="button button-bitbucket" href="https://bitbucket.com/beabys"><img class="icon" src="images/icons/bitbucket.png">Bitbucket</a>
-          <br> -->
-        
-        <!-- X -->
-        <a class="button button-x" href="https://x.com/beabys"><img class="icon" src="images/icons/x.svg"></a>
-          <br>
-
-        <!-- Instagram -->
-        <a class="button button-instagram" href="https://www.instagram.com/beabys"><img class="icon" src="images/icons/instagram.svg">Instagram</a>
-          <br>
-
-        <!-- Facebook -->
-        <!-- <a class="button button-facebook" href="#"><img class="icon" src="images/icons/facebook.svg">Facebook</a> -->
-          <!-- <br> -->
-
-        <!-- LinkedIn -->
-        <a class="button button-linked" href="https://www.linkedin.com/in/beabys/"><img class="icon" src="images/icons/linkedin.svg">LinkedIn</a>
-          <br>
-        
-        <!-- YouTube -->
-        <!-- <a class="button button-youtube" href="#"><img class="icon" src="images/icons/youtube.svg">YouTube</a> -->
-          <!-- <br>  -->
-
-        <!-- Snapchat -->
-        <!-- <a class="button button-snapchat" href="#"><img class="icon" src="images/icons/snapchat.svg">Snapchat</a> -->
-          <!-- <br> -->
-
-        <!-- Spotify -->
-        <!-- <a class="button button-spotify" href="#"><img class="icon" src="images/icons/spotify.svg">Spotify</a> -->
-          <!-- <br>       -->
-          
-        <!-- Reddit -->
-        <!-- <a class="button button-reddit" href="#"><img class="icon" src="images/icons/reddit.svg">Reddit</a> -->
-          <!-- <br>    -->
-          
-         <!-- Rocketseat -->
-         <!-- <a class="button button-rocketseat" href="#"><img class="icon" src="images/icons/rocketseat.svg">Rocketseat</a> -->
-         <!-- <br>    -->
-
-        <!-- Medium -->
-        <!-- <a class="button button-medium" href="#"><img class="icon" src="images/icons/medium.svg">Medium</a> -->
-          <!-- <br>  -->
-
-        <!-- Pinterest -->
-        <!-- <a class="button button-pinterest" href="#"><img class="icon" src="images/icons/pinterest.svg">Pinterest</a> -->
-          <!-- <br> -->
-
-        <!-- SoundCloud -->
-        <!-- <a class="button button-soundcloud" href="#"><img class="icon" src="images/icons/soundcloud.svg">SoundCloud</a> -->
-          <!-- <br>         -->
-         
-        <!-- Spectrum -->
-        <!-- <a class="button button-spectrum" href="#"><img class="icon" src="images/icons/spectrum.svg">Spectrum</a> -->
-          <!-- <br>           -->
-
-        <!-- Figma -->
-        <!-- <a class="button button-figma" href="#"><img class="icon" src="images/icons/figma.svg">Figma</a> -->
-          <!-- <br> -->
-
-        <!-- Kit -->
-        <!-- <a class="button button-kit" href="#"><img class="icon" src="images/icons/kit.svg">Kit</a> -->
-          <!-- <br>           -->
-
-        <!-- Telegram -->
-        <!-- <a class="button button-telegram" href="#"><img class="icon" src="images/icons/telegram.svg">Telegram</a> -->
-          <!-- <br>           -->
-
-        <!-- Tumblr -->
-        <!-- <a class="button button-tumblr" href="#"><img class="icon" src="images/icons/tumblr.svg">Tumblr</a> -->
-          <!-- <br> -->
-
-        <!-- Steam -->
-        <!-- <a class="button button-steam" href="#"><img class="icon" src="images/icons/steam.svg">Steam</a> -->
-          <!-- <br> -->
-
-        <!-- Discord -->
-        <!-- <a class="button button-discord" href="#"><img class="icon" src="images/icons/discord.svg">Discord</a> -->
-          <!-- <br> -->
-
-        <!-- Twitch -->
-        <!-- <a class="button button-twitch" href="#"><img class="icon" src="images/icons/twitch.svg">Twitch</a> -->
-          <!-- <br> -->
-
-        <!-- Mixer -->
-        <!-- <a class="button button-mixer" href="#"><img class="icon" src="images/icons/mixer.svg">Mixer</a> -->
-          <!-- <br> -->
-
-        <!-- Goodreads -->
-        <!-- <a class="button button-goodreads" href="#"><img class="icon" src="images/icons/goodreads.svg">Goodreads</a> -->
-          <!-- <br> -->
-
-        <!-- Skoob -->
-        <!-- <a class="button button-skoob" href="#"><img class="icon" src="images/icons/skoob.svg">Skoob</a> -->
-          <!-- <br> -->
-        
-        <!-- Wordpress -->
-        <!-- <a class="button button-wordpress" href="#"><img class="icon" src="images/icons/wordpress.svg">Wordpress</a> -->
-        <!-- <br> -->
-        <!-- <br> -->
-        <!-- <p>Build your own by forking <a href="https://littlelink.io">LittleLink</a>.</p> -->
-          
+  <!-- ===== HEADER / NAVBAR (fixed top) ===== -->
+  <header>
+    <nav id="navbar" class="fixed top-0 left-0 w-full z-50 px-4 sm:px-6 py-4 transition-all duration-300">
+      <div class="max-w-2xl mx-auto flex items-center justify-between">
+        <a href="#" class="text-[#C9A84C] text-lg font-semibold whitespace-nowrap">Alfonso Rodríguez</a>
+        <!-- Desktop nav -->
+        <div class="hidden md:flex items-center gap-6">
+          <a href="#about" class="nav-link text-[var(--text-link)] hover:text-[#C9A84C] text-sm font-medium tracking-wide transition-colors duration-300">About</a>
+          <a href="#expertise" class="nav-link text-[var(--text-link)] hover:text-[#C9A84C] text-sm font-medium tracking-wide transition-colors duration-300">Expertise</a>
+          <a href="#projects" class="nav-link text-[var(--text-link)] hover:text-[#C9A84C] text-sm font-medium tracking-wide transition-colors duration-300">Projects</a>
+          <a href="#contact" class="nav-link text-[var(--text-link)] hover:text-[#C9A84C] text-sm font-medium tracking-wide transition-colors duration-300">Contact</a>
+        </div>
+        <div class="flex items-center gap-1">
+          <!-- Hamburger -->
+          <button id="hamburger-btn" class="md:hidden flex flex-col gap-1.5 p-2" aria-label="Menu" aria-controls="mobile-menu" aria-expanded="false">
+            <span class="block w-6 h-0.5 bg-[#C9A84C] transition-all duration-300 origin-center"></span>
+            <span class="block w-6 h-0.5 bg-[#C9A84C] transition-all duration-300"></span>
+            <span class="block w-6 h-0.5 bg-[#C9A84C] transition-all duration-300 origin-center"></span>
+          </button>
+          <!-- Theme toggle (desktop + mobile) -->
+          <button id="theme-toggle" class="p-2 rounded-lg hover:bg-white/10 transition-colors duration-300" aria-label="Toggle theme">
+            <!-- Sun icon (shown in dark mode) -->
+            <svg id="sun-icon" class="w-5 h-5 text-[#C9A84C]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>
+            </svg>
+            <!-- Moon icon (shown in light mode) -->
+            <svg id="moon-icon" class="w-5 h-5 text-[#C9A84C] hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
+            </svg>
+          </button>
+        </div>
       </div>
+    </nav>
+    <!-- Mobile slide-out menu -->
+    <div id="mobile-menu" class="fixed top-0 right-0 h-full w-64 bg-[var(--bg-body)] border-l border-[var(--mobile-menu-border)] z-40 flex flex-col pt-24 px-8 shadow-2xl" role="dialog" aria-modal="true" aria-label="Mobile navigation">
+      <a href="#about" class="mobile-link text-[var(--text-primary)] text-lg py-3 border-b border-[var(--mobile-menu-border)] hover:text-[#C9A84C] transition-colors duration-300">About</a>
+      <a href="#expertise" class="mobile-link text-[var(--text-primary)] text-lg py-3 border-b border-[var(--mobile-menu-border)] hover:text-[#C9A84C] transition-colors duration-300">Expertise</a>
+      <a href="#projects" class="mobile-link text-[var(--text-primary)] text-lg py-3 border-b border-[var(--mobile-menu-border)] hover:text-[#C9A84C] transition-colors duration-300">Projects</a>
+      <a href="#contact" class="mobile-link text-[var(--text-primary)] text-lg py-3 border-b border-[var(--mobile-menu-border)] hover:text-[#C9A84C] transition-colors duration-300">Contact</a>
     </div>
-  </div>
+  </header>
 
-<!-- End Document
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <main class="max-w-2xl mx-auto px-4 py-16 pt-20">
+
+    <!-- ===== HERO ===== -->
+    <section class="fade-section flex flex-col items-center text-center py-20">
+      <img
+        src="images/me.png"
+        alt="Alfonso Rodríguez"
+        class="w-[120px] h-[120px] rounded-full object-cover border-2 border-[var(--border-subtle)] mb-6"
+      />
+      <h1 class="text-4xl font-bold mb-2">Alfonso Rodríguez</h1>
+      <p class="text-xl text-[#C9A84C] font-semibold mb-3">Senior Software Engineer & Team Lead</p>
+      <p class="text-[var(--text-secondary)] max-w-lg mb-6">
+        10+ years building e-commerce, payments, and SaaS platforms
+      </p>
+      <div class="flex flex-wrap justify-center gap-x-2 gap-y-1 text-sm text-[var(--text-secondary)]">
+        <span>Go</span><span>·</span>
+        <span>PHP</span><span>·</span>
+        <span>Python</span><span>·</span>
+        <span>Node.js</span><span>·</span>
+        <span>MongoDB</span><span>·</span>
+        <span>Redis</span><span>·</span>
+        <span>RabbitMQ</span><span>·</span>
+        <span>Kafka</span><span>·</span>
+        <span>AWS</span>
+      </div>
+    </section>
+
+    <!-- ===== ABOUT ===== -->
+    <section id="about" class="fade-section py-20">
+      <h2 class="text-2xl font-bold mb-6">About Me</h2>
+      <p class="text-[var(--text-secondary)] leading-relaxed mb-4">
+        I'm a Mexican software engineer based in Hong Kong. Over the past decade, 
+        I've designed high-throughput payment systems, led cross-regional engineering 
+        teams, and migrated monolithic platforms to microservices. I specialize in 
+        Go, cloud-native architectures, and building systems that stay reliable under 
+        real-world traffic. I care about clean code, pragmatic architecture, and 
+        mentoring the people I work with.
+      </p>
+      <div class="flex flex-wrap items-center gap-4 text-[var(--text-secondary)] text-sm">
+        <span>📍 Hong Kong</span>
+        <span>🇲🇽 Mexican</span>
+      </div>
+    </section>
+
+    <!-- ===== AREAS OF EXPERTISE ===== -->
+    <section id="expertise" class="fade-section py-20">
+      <h2 class="text-2xl font-bold mb-8">Areas of Expertise</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+
+        <!-- Card 1 -->
+        <div class="backdrop-blur border rounded-xl p-6" style="background-color: var(--bg-card); border-color: var(--border-card);">
+          <h3 class="text-[#C9A84C] font-semibold text-lg mb-2">Backend Engineering</h3>
+          <ul class="text-[var(--text-secondary)] text-sm leading-relaxed list-disc list-inside space-y-1">
+            <li>Go, PHP, Python, Node.js</li>
+            <li>gRPC &amp; RESTful API design</li>
+            <li>Microservices &amp; Hexagonal Architecture</li>
+            <li>DDD, TDD, Clean Code</li>
+          </ul>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="backdrop-blur border rounded-xl p-6" style="background-color: var(--bg-card); border-color: var(--border-card);">
+          <h3 class="text-[#C9A84C] font-semibold text-lg mb-2">Cloud &amp; DevOps</h3>
+          <ul class="text-[var(--text-secondary)] text-sm leading-relaxed list-disc list-inside space-y-1">
+            <li>AWS (EC2, S3, RDS, SQS, CloudWatch)</li>
+            <li>Kubernetes (deployments, HPA, Helm, Kustomize)</li>
+            <li>Docker &amp; Podman</li>
+            <li>CI/CD (GitLab CI, Jenkins, Argo CD)</li>
+          </ul>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="backdrop-blur border rounded-xl p-6" style="background-color: var(--bg-card); border-color: var(--border-card);">
+          <h3 class="text-[#C9A84C] font-semibold text-lg mb-2">System Architecture</h3>
+          <ul class="text-[var(--text-secondary)] text-sm leading-relaxed list-disc list-inside space-y-1">
+            <li>Microservices &amp; Modular Monolith</li>
+            <li>High Availability &amp; Scalability</li>
+            <li>Performance Optimization</li>
+            <li>System Migration Strategies</li>
+          </ul>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="backdrop-blur border rounded-xl p-6" style="background-color: var(--bg-card); border-color: var(--border-card);">
+          <h3 class="text-[#C9A84C] font-semibold text-lg mb-2">Team Leadership</h3>
+          <ul class="text-[var(--text-secondary)] text-sm leading-relaxed list-disc list-inside space-y-1">
+            <li>Cross-regional team management</li>
+            <li>Code reviews &amp; technical mentoring</li>
+            <li>Agile &amp; Scrum methodologies</li>
+            <li>Technical planning &amp; resource management</li>
+          </ul>
+        </div>
+
+        <!-- Card 5 -->
+        <div class="backdrop-blur border rounded-xl p-6" style="background-color: var(--bg-card); border-color: var(--border-card);">
+          <h3 class="text-[#C9A84C] font-semibold text-lg mb-2">Payment &amp; Fintech</h3>
+          <ul class="text-[var(--text-secondary)] text-sm leading-relaxed list-disc list-inside space-y-1">
+            <li>Payment gateway integrations</li>
+            <li>PCI-DSS compliance &amp; security</li>
+            <li>KYC service implementation</li>
+            <li>Secure transaction processing</li>
+          </ul>
+        </div>
+
+        <!-- Card 6 -->
+        <div class="backdrop-blur border rounded-xl p-6" style="background-color: var(--bg-card); border-color: var(--border-card);">
+          <h3 class="text-[#C9A84C] font-semibold text-lg mb-2">Data &amp; Streaming</h3>
+          <ul class="text-[var(--text-secondary)] text-sm leading-relaxed list-disc list-inside space-y-1">
+            <li>Kafka &amp; RabbitMQ message streaming</li>
+            <li>PostgreSQL, MySQL, MongoDB, Redis</li>
+            <li>Cassandra &amp; Aerospike</li>
+            <li>ETL pipelines</li>
+          </ul>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ===== FEATURED PROJECT: MyDevStack ===== -->
+    <section id="projects" class="fade-section py-20">
+      <h2 class="text-2xl font-bold mb-8">Featured Project</h2>
+      <div class="backdrop-blur border rounded-xl p-6" style="background-color: var(--bg-card); border-color: var(--border-card);">
+        <img
+          src="https://my-devstack.github.io/screenshots/dashboard-overview.png"
+          alt="MyDevStack dashboard overview"
+          class="w-full rounded-lg border border-[var(--border-img)] mb-5"
+          loading="lazy"
+        />
+        <h3 class="text-xl font-bold mb-2">MyDevStack</h3>
+        <p class="text-[var(--text-secondary)] leading-relaxed mb-4">
+          A modern, developer-friendly web interface for managing 18+ AWS services
+          running locally via LocalStack, FloCi, or MiniStack. Features real-time status,
+          CRUD operations, and code examples for every service.
+        </p>
+        <div class="flex flex-wrap gap-x-2 gap-y-1 text-sm text-[var(--text-secondary)] mb-5">
+          <span>TypeScript</span><span>·</span>
+          <span>Vue.js</span><span>·</span>
+          <span>Go</span><span>·</span>
+          <span>AWS</span><span>·</span>
+          <span>Docker</span>
+        </div>
+        <div class="flex flex-wrap gap-4">
+          <a
+            href="https://github.com/my-devstack/mydevstack"
+            class="inline-flex items-center gap-2 text-sm text-[var(--text-link)] hover:text-white transition-colors"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <!-- GitHub icon inline -->
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.387.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.73.083-.73 1.205.085 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12 24 5.37 18.63 0 12 0z"/></svg>
+            GitHub
+          </a>
+          <a
+            href="https://my-devstack.github.io"
+            class="inline-flex items-center gap-2 text-sm text-[#C9A84C] hover:text-white transition-colors"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <!-- External link icon inline -->
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+            Live
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== MORE ON GITHUB ===== -->
+    <section class="fade-section py-20 text-center">
+      <div class="backdrop-blur border rounded-xl p-8 sm:p-10" style="background-color: var(--bg-card); border-color: var(--border-card);">
+        <h2 class="text-2xl font-bold mb-4">Want to see more?</h2>
+        <p class="text-[var(--text-secondary)] leading-relaxed mb-6 max-w-lg mx-auto">
+          Explore my GitHub repositories — from AWS tooling and Go libraries to full-stack projects. 
+          Each one reflects my approach to building clean, reliable, and practical software.
+        </p>
+        <a
+          href="https://github.com/beabys?tab=repositories"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-2 bg-[#C9A84C] hover:bg-[#B8963A] text-white font-semibold px-6 py-3 rounded-lg transition-colors duration-300"
+        >
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.387.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.73.083-.73 1.205.085 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12 24 5.37 18.63 0 12 0z"/></svg>
+          View GitHub Repositories
+        </a>
+      </div>
+    </section>
+
+    <!-- ===== CONTACT ===== -->
+    <section id="contact" class="fade-section py-20 text-center">
+      <h2 class="text-2xl font-bold mb-6">Contact</h2>
+      <a
+        href="mailto:contact@alfonsorodriguez.xyz"
+        class="text-[var(--text-secondary)] hover:text-white transition-colors text-lg"
+      >
+        contact@alfonsorodriguez.xyz
+      </a>
+
+      <div class="flex justify-center items-center gap-6 mt-8">
+        <!-- GitHub -->
+        <a
+          href="https://github.com/beabys"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="transition-transform duration-200 hover:scale-110 opacity-70 hover:opacity-100"
+        >
+          <img src="images/icons/github.svg" alt="GitHub" class="w-8 h-8 icon-dark" />
+        </a>
+        <!-- LinkedIn -->
+        <a
+          href="https://www.linkedin.com/in/beabys/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="transition-transform duration-200 hover:scale-110 opacity-70 hover:opacity-100"
+        >
+          <img src="images/icons/linkedin.svg" alt="LinkedIn" class="w-8 h-8 icon-dark" />
+        </a>
+        <!-- MyDevStack -->
+        <a
+          href="https://my-devstack.github.io"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="transition-transform duration-200 hover:scale-110 opacity-70 hover:opacity-100"
+        >
+          <img src="images/icons/mydevstack.svg" alt="MyDevStack" class="w-8 h-8" />
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="text-center pb-8">
+    <p class="text-[var(--text-footer)] text-sm">&copy; <span id="year"></span> Alfonso Rodríguez</p>
+  </footer>
+
+  <script>
+    (function() {
+      'use strict';
+
+      // ---- DOM refs ----
+      const navbar = document.getElementById('navbar');
+      const hamburgerBtn = document.getElementById('hamburger-btn');
+      const mobileMenu = document.getElementById('mobile-menu');
+      const mobileLinks = document.querySelectorAll('.mobile-link');
+      const fadeSections = document.querySelectorAll('.fade-section');
+
+      // ---- 1. Fixed header: transparent on hero, solid on scroll ----
+      function handleScroll() {
+        if (window.scrollY > 80) {
+          navbar.classList.add('scrolled');
+        } else {
+          navbar.classList.remove('scrolled');
+        }
+      }
+      window.addEventListener('scroll', handleScroll, { passive: true });
+      handleScroll();
+
+      // ---- 2. Mobile hamburger menu toggle ----
+      function toggleMenu(open) {
+        if (open === undefined) {
+          const isOpen = mobileMenu.classList.contains('open');
+          open = !isOpen;
+        }
+        if (open) {
+          mobileMenu.classList.add('open');
+          hamburgerBtn.classList.add('open');
+          hamburgerBtn.setAttribute('aria-expanded', 'true');
+          document.body.style.overflow = 'hidden';
+        } else {
+          mobileMenu.classList.remove('open');
+          hamburgerBtn.classList.remove('open');
+          hamburgerBtn.setAttribute('aria-expanded', 'false');
+          document.body.style.overflow = '';
+        }
+      }
+
+      hamburgerBtn.addEventListener('click', function() {
+        toggleMenu();
+      });
+
+      // Close mobile menu on link click
+      mobileLinks.forEach(function(link) {
+        link.addEventListener('click', function() {
+          toggleMenu(false);
+        });
+      });
+
+      // Close mobile menu on Escape key
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && mobileMenu.classList.contains('open')) {
+          toggleMenu(false);
+          hamburgerBtn.focus();
+        }
+      });
+
+      // Close menu when clicking outside
+      document.addEventListener('click', function(e) {
+        if (mobileMenu.classList.contains('open')) {
+          const isMenu = mobileMenu.contains(e.target);
+          const isBtn = hamburgerBtn.contains(e.target);
+          if (!isMenu && !isBtn) {
+            toggleMenu(false);
+          }
+        }
+      });
+
+      // ---- 3. Scroll-based fade-in animations ----
+      const observerOptions = {
+        root: null,
+        rootMargin: '0px 0px -80px 0px',
+        threshold: 0.1
+      };
+
+      const observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, observerOptions);
+
+      fadeSections.forEach(function(section) {
+        observer.observe(section);
+      });
+
+      // ---- 4. Smooth scroll with nav offset ----
+      document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
+        anchor.addEventListener('click', function(e) {
+          const targetId = anchor.getAttribute('href');
+          if (targetId === '#') return;
+          const target = document.querySelector(targetId);
+          if (target) {
+            e.preventDefault();
+            const navHeight = navbar.offsetHeight;
+            const targetPos = target.getBoundingClientRect().top + window.pageYOffset - navHeight;
+            window.scrollTo({
+              top: targetPos,
+              behavior: 'smooth'
+            });
+          }
+        });
+      });
+
+      // ---- 5. Dynamic year ----
+      document.getElementById('year').textContent = new Date().getFullYear();
+
+      // ---- 6. Dark/Light theme toggle ----
+      const themeToggle = document.getElementById('theme-toggle');
+      const sunIcon = document.getElementById('sun-icon');
+      const moonIcon = document.getElementById('moon-icon');
+      
+      function setTheme(theme) {
+        if (theme === 'light') {
+          document.documentElement.setAttribute('data-theme', 'light');
+          sunIcon.classList.add('hidden');
+          moonIcon.classList.remove('hidden');
+          localStorage.setItem('theme', 'light');
+        } else {
+          document.documentElement.removeAttribute('data-theme');
+          sunIcon.classList.remove('hidden');
+          moonIcon.classList.add('hidden');
+          localStorage.setItem('theme', 'dark');
+        }
+      }
+      
+      // Load saved theme
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme === 'light') {
+        setTheme('light');
+      }
+      
+      themeToggle.addEventListener('click', function() {
+        const currentTheme = document.documentElement.getAttribute('data-theme');
+        setTheme(currentTheme === 'light' ? 'dark' : 'light');
+      });
+
+    })();
+  </script>
+
 </body>
 </html>
