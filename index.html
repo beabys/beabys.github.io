@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Alfonso Rodríguez — Senior Software Engineer & Team Lead</title>
-  <meta name="description" content="Senior Software Engineer & Team Lead. 10+ years building e-commerce, payments, and SaaS platforms. Based in Hong Kong.">
+  <title>Alfonso Rodríguez — Senior Platform Engineer & Team Lead</title>
+  <meta name="description" content="Senior Platform Engineer & Team Lead. 10+ years building e-commerce, payments, and SaaS platforms. Based in Hong Kong.">
 
   <!-- Google Fonts: Inter -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -193,7 +193,7 @@
         class="w-[120px] h-[120px] rounded-full object-cover border-2 border-[var(--border-subtle)] mb-6"
       />
       <h1 class="text-4xl font-bold mb-2">Alfonso Rodríguez</h1>
-      <p class="text-xl text-[#C9A84C] font-semibold mb-3">Senior Software Engineer & Team Lead</p>
+      <p class="text-xl text-[#C9A84C] font-semibold mb-3">Senior Platform Engineer & Team Lead</p>
       <p class="text-[var(--text-secondary)] max-w-lg mb-6">
         10+ years building e-commerce, payments, and SaaS platforms
       </p>
@@ -201,11 +201,11 @@
         <span>Go</span><span>·</span>
         <span>PHP</span><span>·</span>
         <span>Python</span><span>·</span>
-        <span>Node.js</span><span>·</span>
-        <span>MongoDB</span><span>·</span>
-        <span>Redis</span><span>·</span>
-        <span>RabbitMQ</span><span>·</span>
+        <span>Kubernetes</span><span>·</span>
+        <span>Terraform</span><span>·</span>
         <span>Kafka</span><span>·</span>
+        <span>RabbitMQ</span><span>·</span>
+        <span>Redis</span><span>·</span>
         <span>AWS</span>
       </div>
     </section>
@@ -249,6 +249,7 @@
           <ul class="text-[var(--text-secondary)] text-sm leading-relaxed list-disc list-inside space-y-1">
             <li>AWS (EC2, S3, RDS, SQS, CloudWatch)</li>
             <li>Kubernetes (deployments, HPA, Helm, Kustomize)</li>
+            <li>Terraform &amp; Ansible</li>
             <li>Docker &amp; Podman</li>
             <li>CI/CD (GitLab CI, Jenkins, Argo CD)</li>
           </ul>
@@ -311,6 +312,9 @@
           class="w-full rounded-lg border border-[var(--border-img)] mb-5"
           loading="lazy"
         />
+        <p class="text-xs text-[var(--text-footer)] text-center mb-5">
+          MyDevStack — live dashboard preview, connected to a local AWS emulator
+        </p>
         <h3 class="text-xl font-bold mb-2">MyDevStack</h3>
         <p class="text-[var(--text-secondary)] leading-relaxed mb-4">
           A modern, developer-friendly web interface for managing 18+ AWS services
@@ -344,6 +348,67 @@
             <!-- External link icon inline -->
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
             Site
+          </a>
+        </div>
+      </div>
+      
+      <!-- ===== HOMELAB PLATFORM (proxmox-terraform + k3s-cluster) ===== -->
+      <div class="backdrop-blur border rounded-xl p-6 mt-8" style="background-color: var(--bg-card); border-color: var(--border-card);">
+        <h3 class="text-xl font-bold mb-2">Homelab Platform</h3>
+        <p class="text-[var(--text-secondary)] leading-relaxed mb-6">
+          A self-hosted Kubernetes platform on Proxmox, built in two layers:
+          infrastructure provisioning with Terraform, then cluster bootstrap and
+          service delivery with Ansible, Terraform, and ArgoCD.
+        </p>
+
+        <!-- Layer 1 — proxmox-terraform -->
+        <div class="border-t pt-5 mt-2" style="border-color: var(--border-card);">
+          <h4 class="text-[#C9A84C] font-semibold mb-2">Layer 1 — Infrastructure Provisioning</h4>
+          <p class="text-[var(--text-secondary)] leading-relaxed text-sm mb-4">
+            Provisions VMs and LXC containers on Proxmox with reusable Terraform
+            modules, multi-instance definitions, and parameterized machine shapes.
+            The foundation for every workload above it.
+          </p>
+          <div class="flex flex-wrap gap-x-2 gap-y-1 text-sm text-[var(--text-secondary)] mb-4">
+            <span>Terraform</span><span>·</span>
+            <span>bpg/proxmox</span><span>·</span>
+            <span>Reusable Modules</span>
+          </div>
+          <a
+            href="https://github.com/beabys/proxmox-terraform"
+            class="inline-flex items-center gap-2 text-sm text-[var(--text-link)] hover:text-white transition-colors"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.387.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.73.083-.73 1.205.085 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12 24 5.37 18.63 0 12 0z"/></svg>
+            proxmox-terraform
+          </a>
+        </div>
+
+        <!-- Layer 2 — k3s-cluster -->
+        <div class="border-t pt-5 mt-5" style="border-color: var(--border-card);">
+          <h4 class="text-[#C9A84C] font-semibold mb-2">Layer 2 — Kubernetes Platform</h4>
+          <p class="text-[var(--text-secondary)] leading-relaxed text-sm mb-4">
+            Two-phase K3s platform: Ansible bootstraps the cluster (external HAProxy
+            + MariaDB + K3s); Terraform deploys platform services — Traefik, MetalLB,
+            Longhorn, Prometheus, Loki, ArgoCD, Fission, and External Secrets Operator.
+          </p>
+          <div class="flex flex-wrap gap-x-2 gap-y-1 text-sm text-[var(--text-secondary)] mb-4">
+            <span>K3s</span><span>·</span>
+            <span>Ansible</span><span>·</span>
+            <span>Terraform</span><span>·</span>
+            <span>ArgoCD</span><span>·</span>
+            <span>Prometheus</span><span>·</span>
+            <span>Loki</span>
+          </div>
+          <a
+            href="https://github.com/beabys/k3s-cluster"
+            class="inline-flex items-center gap-2 text-sm text-[var(--text-link)] hover:text-white transition-colors"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.387.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.73.083-.73 1.205.085 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12 24 5.37 18.63 0 12 0z"/></svg>
+            k3s-cluster
           </a>
         </div>
       </div>
